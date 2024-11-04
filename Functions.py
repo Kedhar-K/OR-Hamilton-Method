@@ -1,7 +1,6 @@
 class Hungarian:
     def __init__(self,matrix):
         self.matrix = matrix
-        self.size = len(matrix)
         self.matrix2 = []
         self.matrix3 = []
     
@@ -29,5 +28,18 @@ class Hungarian:
 
         return m.copy
     
+    def uniqueZero(row):
+        r = row.copy()
+        r.sort()
+        if(r[0] == r[1]):
+            return -1
+        else:
+            return row.index(0)
+    
+    def colStrike(mat,cols = [],di = {}):
+        m,c,d = mat.copy(),cols.copy(),di.copy()
+        for i in m:
+            z = Hungarian 
+
 
         
