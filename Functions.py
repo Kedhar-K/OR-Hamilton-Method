@@ -5,29 +5,29 @@ class Hungarian:
         self.matrix2 = []
         self.matrix3 = []
     
-    def rowReduce(self, mat):
-        self.matrix2 = mat.copy()
-        for i in range(self.size):
-            for j in range(self.size):
-                self.matrix2[i][j] = self.matrix[i][j] - min(self.matrix[i])
+    def rowReduce(mat):
+        m = mat.copy()
+        for i in range(len(m)):
+            n = min(mat[i])
+            m[i] = [x - n for x in m[i]]
 
-        return self.matrix2.copy()
+        return m.copy()
     
-    def transpose(self):
-        tp = self.matrix2.copy()
-        for i in range(self.size):
-            for j in range(self.size):
-                tp[i][j] = self.matrix[j][i]
+    def transpose(mat):
+        tp = mat.copy()
+        for i in range(len(mat)):
+            for j in range(len(mat)):
+                tp[i][j] = mat[j][i]
         
         return tp.copy()
 
-    def colReduce(self):
-        for n in range(self.size):
-            res = [min(i) for i in zip(*self.matrix)][n]
-            self.matrix3 = self.matrix2.copy()
-            for j in range(self.size):
-                self.matrix3[j][n] = self.matrix3[j][n] - res
-        
+    def colReduce(mat):
+        m = mat.copy()
+        m = Hungarian.transpose(m)
+        m = Hungarian.rowReduce(m)
+        m = Hungarian.transpose(m)
 
-import os
-print(os.getcwd())
+        return m.copy
+    
+
+        
