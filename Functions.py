@@ -24,7 +24,6 @@ class Hungarian:
 
     def colReduce(m):
         m1 = Hungarian.transpose(m)
-        print(m1)
         m2 = Hungarian.rowReduce(m1)
         m3 = Hungarian.transpose(m2)
 
@@ -113,8 +112,7 @@ class Hungarian:
                 break
             else:
                 self.matrix = Hungarian.subn(self.matrix3,c,r)
-                print (di[t])
             
             t += 1
 
-        return di
+        return di,t
