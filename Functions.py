@@ -1,6 +1,7 @@
 class Hungarian:
-    def __init__(self,matrix):
+    def __init__(self,matrix,size):
         self.matrix = matrix
+        self.size = size
         self.matrix2 = []
         self.matrix3 = []
     
@@ -88,8 +89,23 @@ class Hungarian:
             
             if (di2 == di):
                 break
+
+        return c,r,di
         
     def main(self):
-        
+        di = {}
+        t = 1
+        while (True):
+            self.matrix2 = Hungarian.rowReduce(self.matrix)
+            self.matrix3 = Hungarian.colReduce(self.matrix2)
+            c,r,di2 = Hungarian.checkBox(self.matrix2)
+            di[t] = [self.matrix,self.matrix2,self.matrix3,di2]
+            if(len(di2) == self.size):
+                break
+            else:
+                self.matrix = Hungarian.subn(self.matrix3,c,r)
+
+        return di
+
 
 
