@@ -6,38 +6,42 @@ class Hungarian:
         self.matrix3 = []
     
     def rowReduce(mat):
-        m = mat.copy()
-        for i in range(len(m)):
+        for i in range(len(mat)):
             n = min(mat[i])
-            m[i] = [x - n for x in m[i]]
+            for j in range(len(mat)):
+                mat[i][j] -= n
 
-        return m.copy()
+        return mat.copy()
     
     def transpose(mat):
         tp = mat.copy()
         for i in range(len(mat)):
-            for j in range(len(mat)):
+            tp[i] = mat[i].copy()
+            for j in range(len(mat[i])):
                 tp[i][j] = mat[j][i]
         
         return tp.copy()
 
-    def colReduce(mat):
-        m = mat.copy()
-        m = Hungarian.transpose(m)
-        m = Hungarian.rowReduce(m)
-        m = Hungarian.transpose(m)
+    def colReduce(m):
+        m1 = Hungarian.transpose(m)
+        print(m1)
+        m2 = Hungarian.rowReduce(m1)
+        m3 = Hungarian.transpose(m2)
 
-        return m.copy
+        return m3.copy()
     
     def uniqueZero(row):
         r = row.copy()
         r.sort()
-        if(r[0] == r[1]):
-            return -1
-        else:
+        if(r.count(0) == 1):
             return row.index(0)
+        else:
+            return -1
+        
+    def swapDi(di):
+        return {v: k for k, v in di.items()}
     
-    def colStrike(mat,cols = [],rows = [],di = {}):
+    def colStrike(mat,cols,rows,di):
         m,c,r,d = mat.copy(),cols.copy(),rows.copy(),di.copy()
         for i in range(len(m)):
             if (i in r):
@@ -48,13 +52,18 @@ class Hungarian:
                 if(z == -1):
                     continue
                 else:
-                    c.append(z)
-                    d[i] = z
+                    t2 = [x for x in range(len(m[i])) if(x not in c)]
+                    z2 = t2[z]
+                    c.append(z2)
+                    d[i] = z2
         
         return c,r,d
     
     def rowStrike(mat,cols = [],rows = [],di = {}):
-        r,c,d = Hungarian.colStrike(Hungarian.transpose(mat.copy()),cols = rows.copy,rows = cols.copy(),di = di.copy())
+        di = di.copy()
+        di = Hungarian.swapDi(di)
+        r,c,d = Hungarian.colStrike(Hungarian.transpose(mat.copy()),cols = rows.copy(),rows = cols.copy(),di = di.copy())
+        d = Hungarian.swapDi(d)
 
         return c,r,d
     
@@ -84,28 +93,28 @@ class Hungarian:
         c,r,di,m = [],[],{},mat.copy()
         while (True):
             di2 = di.copy()
-            c,r,di = Hungarian.colStrike(m,c,r,di)
-            c,r,di = Hungarian.rowStrike(m,c,r,di)
+            c,r,di = Hungarian.colStrike(m,c,r,di.copy())
+            c,r,di = Hungarian.rowStrike(m,c,r,di.copy())
             
             if (di2 == di):
                 break
 
-        return c,r,di
+        return c,r,di2
         
     def main(self):
         di = {}
         t = 1
         while (True):
-            self.matrix2 = Hungarian.rowReduce(self.matrix)
-            self.matrix3 = Hungarian.colReduce(self.matrix2)
+            self.matrix2 = Hungarian.rowReduce(self.matrix.copy())
+            self.matrix3 = Hungarian.colReduce(self.matrix2.copy())
             c,r,di2 = Hungarian.checkBox(self.matrix2)
-            di[t] = [self.matrix,self.matrix2,self.matrix3,di2]
+            di[t] = [self.matrix.copy(),self.matrix2.copy(),self.matrix3.copy(),di2.copy()]
             if(len(di2) == self.size):
                 break
             else:
                 self.matrix = Hungarian.subn(self.matrix3,c,r)
+                print (di[t])
+            
+            t += 1
 
         return di
-
-
-
