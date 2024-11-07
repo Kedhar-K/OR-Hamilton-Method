@@ -1,5 +1,61 @@
-<form method="post">
-    <label for="n">Enter a number (n):</label>
-    <input type="number" name="n" required>
-    <button type="submit">Submit</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hungarian Method App - Matrix Size</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #333;
+        }
+        label, button {
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+        input[type="number"] {
+            width: 50px;
+            padding: 5px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hungarian Method Assignment</h1>
+        <p>Created by Prathosh and Kedar for CIA-3</p>
+        <p>Enter the size of the matrix:</p>
+        <form method="post">
+            <label for="n">Matrix size (n x n):</label>
+            <input type="number" name="n" required min="1">
+            <button type="submit">Next</button>
+        </form>
+    </div>
+</body>
+</html>
