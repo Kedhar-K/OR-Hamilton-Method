@@ -54,7 +54,7 @@ class Hungarian:
                     t2 = [x for x in range(len(m[i])) if(x not in c)]
                     z2 = t2[z]
                     c.append(z2)
-                    d[i] = z2
+                    d[i + 1] = z2 + 1
         
         return c,r,d
     

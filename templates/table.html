@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matrix Table</title>
+</head>
+<body>
+    <h2>Matrix Rows as Table</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Row Index</th>
+                <th>Values</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, value in data_dict.items() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>
+                        {% if value is iterable and not value is string %}
+                            {{ value | join(', ') }}
+                        {% else %}
+                            {{ value }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

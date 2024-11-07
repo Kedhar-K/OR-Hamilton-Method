@@ -1,0 +1,10 @@
+<form method="post">
+    {% for i in range(n) %}
+        <div>
+            {% for j in range(n) %}
+                <input type="number" name="cell_{{ i }}_{{ j }}" required>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <button type="submit">Submit Matrix</button>
+</form>
